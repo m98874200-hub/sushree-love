@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sushree ❤️ Satya</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto;
+  background:#000;color:#fff;overflow-x:hidden;scroll-behavior:smooth;
+}
+
+/* ===== BACKGROUND ===== */
+canvas{position:fixed;inset:0;z-index:-10}
+
+/* ===== MUSIC ===== */
+.musicBtn{
+  position:fixed;top:14px;right:14px;z-index:20;
+  padding:10px 16px;border-radius:999px;border:none;
+  background:#ff4da6;color:#fff;cursor:pointer;
+  box-shadow:0 0 22px #ff4da6;
+}
+
+/* ===== SECTIONS ===== */
+section{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:40px;
+}
+.card{
+  max-width:760px;width:100%;
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(22px);
+  border-radius:28px;padding:56px;text-align:center;
+  box-shadow:0 40px 140px rgba(0,0,0,.95);
+  opacity:0;transform:translateY(90px);
+  transition:1.6s cubic-bezier(.2,.7,.1,1);
+}
+.card.show{opacity:1;transform:translateY(0)}
+
+h1{
+  font-size:3.6rem;color:#ff6bb5;
+  text-shadow:0 0 32px #ff6bb5,0 0 90px #ff2d80;
+}
+h2{color:#ff8ecb;margin-bottom:14px}
+
+.line{
+  width:130px;height:2px;margin:18px auto;
+  background:linear-gradient(90deg,transparent,#fff,transparent);
+}
+
+/* ===== TYPING ===== */
+.typing{
+  font-size:1.2rem;line-height:1.7;
+  border-right:2px solid #fff;padding-right:6px;
+  animation:blink .9s infinite;
+}
+@keyframes blink{50%{border-color:transparent}}
+
+/* ===== BUTTON ===== */
+.btn{
+  margin-top:36px;padding:16px 44px;border:none;border-radius:999px;
+  background:#ff4da6;color:#fff;font-size:1.05rem;cursor:pointer;
+  box-shadow:0 0 44px #ff4da6;transition:.3s;
+}
+.btn:hover{transform:scale(1.18);box-shadow:0 0 100px #ff4da6}
+
+/* ===== PROPOSAL ===== */
+.proposal{
+  position:fixed;inset:0;z-index:999;
+  display:none;align-items:center;justify-content:center;text-align:center;
+  background:radial-gradient(circle at center,#ff5fa2,#000);
+}
+.proposal h1{font-size:3.4rem;text-shadow:0 0 70px #fff}
+
+/* ===== SECRET ===== */
+.secret{
+  position:fixed;bottom:14px;left:50%;transform:translateX(-50%);
+  opacity:.45;font-size:.8rem;z-index:10;
+}
+
+/* ===== FOOTER ===== */
+footer{text-align:center;padding:28px;opacity:.6}
+</style>
+</head>
+
+<body>
+
+<button class="musicBtn" onclick="playMusic()">🎵 Music</button>
+
+<canvas id="bg"></canvas>
+
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/audio/2023/03/09/audio_7fbb9f3e6c.mp3" type="audio/mpeg">
+</audio>
+
+<section>
+  <div class="card show">
+    <h1>Sushree ❤️ Satya</h1>
+    <div class="line"></div>
+    <p>This isn’t a website… it’s my heart, in motion.</p>
+  </div>
+</section>
+
+<section>
+  <div class="card reveal">
+    <h2>Our Story</h2>
+    <div class="line"></div>
+    <p>
+      In a loud world, you became my peace.<br/>
+      In passing moments, you became my forever.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="card reveal">
+    <h2>A Letter For You</h2>
+    <div class="line"></div>
+    <p class="typing" id="typing"></p>
+  </div>
+</section>
+
+<section>
+  <div class="card reveal">
+    <h2>Forever Countdown</h2>
+    <div class="line"></div>
+    <p id="countdown"></p>
+  </div>
+</section>
+
+<section>
+  <div class="card reveal">
+    <h2>Sushree…</h2>
+    <div class="line"></div>
+    <button class="btn" onclick="sayYes()">Will you be mine forever? 💍</button>
+  </div>
+</section>
+
+<footer>Made with infinite ❤️ by Satya — Only for Sushree</footer>
+
+<div class="proposal" id="proposal">
+  <h1>She said YES 💖<br/>Forever begins now 🎆</h1>
+</div>
+
+<div class="secret" id="secret">Long-press here ❤️</div>
+
+<script>
+/* ===== GALAXY + HEART GLOW ===== */
+const c=document.getElementById('bg'),x=c.getContext('2d');
+function resize(){c.width=innerWidth;c.height=innerHeight}
+resize();addEventListener('resize',resize);
+
+const stars=[...Array(300)].map(()=>({
+  x:Math.random()*c.width,y:Math.random()*c.height,
+  r:Math.random()*2+1,vy:Math.random()*0.8+0.2,
+  h:Math.random()*360
+}));
+
+function draw(){
+  x.clearRect(0,0,c.width,c.height);
+  stars.forEach(s=>{
+    s.y-=s.vy; if(s.y<0)s.y=c.height;
+    s.h=(s.h+0.5)%360;
+    x.fillStyle=Math.random()>.7?'#fff':`hsla(${s.h},80%,70%,.9)`;
+    x.beginPath();x.arc(s.x,s.y,s.r,0,Math.PI*2);x.fill();
+  });
+  requestAnimationFrame(draw);
+}
+draw();
+
+/* ===== SCROLL REVEAL ===== */
+const cards=[...document.querySelectorAll('.reveal')];
+addEventListener('scroll',()=>{
+  cards.forEach(el=>{
+    if(el.getBoundingClientRect().top<innerHeight-120) el.classList.add('show');
+  });
+});
+
+/* ===== TYPING LETTER ===== */
+const letter=
+"You are not just someone I love.\n"+
+"You are someone I choose — every single day.\n\n"+
+"In every future I imagine,\n"+
+"there is only one constant… you.";
+let i=0; const t=document.getElementById('typing');
+(function type(){ if(i<letter.length){ t.textContent+=letter[i++]; setTimeout(type,70);} })();
+
+/* ===== COUNTDOWN (EDIT DATE IF YOU WANT) ===== */
+setInterval(()=>{
+  const d=new Date("2030-02-14")-new Date();
+  document.getElementById('countdown').textContent=
+    Math.max(0,Math.floor(d/86400000))+" days until forever 💖";
+},1000);
+
+/* ===== MUSIC ===== */
+function playMusic(){document.getElementById('music').play()}
+
+/* ===== PROPOSAL + FIREWORK FEEL ===== */
+function sayYes(){
+  document.getElementById('proposal').style.display='flex';
+  document.body.style.background='radial-gradient(circle,#ff5fa2,#000)';
+}
+
+/* ===== SECRET (LONG PRESS) ===== */
+let hold; const s=document.getElementById('secret');
+s.addEventListener('touchstart',()=>hold=setTimeout(()=>{
+  alert("Sushree ❤️\nNo matter where life takes us… I choose you. Always.");
+},900));
+s.addEventListener('touchend',()=>clearTimeout(hold));
+</script>
+
+</body>
+      </html>
